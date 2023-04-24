@@ -1,12 +1,10 @@
 import numpy as np
 import pandas as pd
 from imblearn.over_sampling import SMOTE
-from collections import Counter
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 
-
-def readData(file_path):
+def readData(file_path, apply_smote = False):
     data = pd.read_csv(file_path, header=None, index_col=None)
 
     data = pd.DataFrame(data)  # creates a dataframe from datafile
@@ -17,13 +15,10 @@ def readData(file_path):
     d = len(data.columns)  # number of columns
     
     X_train_old, xts, Y_train_old, yts = train_test_split(data.iloc[:, :-1], data[[d-1]] , test_size=0.20, random_state=0)
-    
-    apply_smote_oversampling = True
-    
-    if apply_smote_oversampling:
-        #Avishek- start oversampling minority class in training data only    
-        oversample = SMOTE()
-        x, y = oversample.fit_resample(X_train_old,Y_train_old)
+        
+    if apply_smote:   
+        oversample = SMOTE(random_state=42)
+        x, y = oversample.fit_resample(X_train_old, Y_train_old)
     else:
         x = X_train_old
         y = Y_train_old
