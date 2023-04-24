@@ -18,7 +18,7 @@ def get_optimizer(network, name, cache):
     if(name == 'SGD'):
         return torch.optim.SGD(network.parameters(), lr=l_rate, weight_decay= lamda)
     elif(name == 'SGDM'):
-        return torch.optim.SGD(network.parameters(), lr=l_rate, weight_decay= lamda,momentum=1)
+        return torch.optim.SGD(network.parameters(), lr=l_rate, weight_decay= lamda,momentum=0.9)
     elif(name == 'ADAM'):
         return torch.optim.Adam(network.parameters(), lr=l_rate, betas= betas,  weight_decay= lamda)
     elif(name == 'ADADELTA'):
